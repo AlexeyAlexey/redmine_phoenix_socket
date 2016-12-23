@@ -1,3 +1,54 @@
 = redmine_phoenix_socket
 
 Description goes here
+
+https://babeljs.io/
+http://babeljs.io/docs/usage/cli/
+
+https://www.npmjs.com/package/babel-plugin-add-module-exports
+
+sudo npm install babel-cli babel-preset-es2015
+
+npm install --save-dev babel-preset-react
+
+sudo npm install --save-dev babel-plugin-transform-es2015-modules-amd
+
+sudo npm install --save-dev transform-es2015-modules-amd
+
+sudo npm install babel-plugin-transform-es2015-modules-amd
+sudo npm install babel-plugin-add-module-exports
+
+
+/vagrant/plugins/redmine_phoenix_socket/assets/javascripts/.babelrc
+{
+  "presets": ['es2015'],
+  "plugins": [
+    "add-module-exports",
+    "transform-es2015-modules-umd"
+  ]
+}
+
+/vagrant/plugins/redmine_phoenix_socket/assets/javascripts/package.json
+
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "devDependencies": {
+    "babel-cli": "^6.0.0"
+  }
+}
+
+
+
+:/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel phoenix.es6 --out-file phoenix.js
+
+/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6/socket.js --out-file socket.js
+
+
+babel phoenix.es6 --out-file phoenix.js
+vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel socket.es6 --out-file socket.js
+vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel socket.es6 --out-file socket.js
+vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6/socket.js --out-file socket.js
+vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6/socket.js --out-file socket.js
+vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6/app_socket.js --out-file app_socket.js
+vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6/global_chat.js --out-file global_chat.js

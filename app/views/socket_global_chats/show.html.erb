@@ -1,0 +1,26 @@
+<div id="global_chat" data-global-chat-id="1">
+      <div class="panel-heading">
+        <h3 class="panel-title">Annotations</h3>
+      </div>
+      
+      <div id="msg-container" class="panel-body annotation">
+        
+        <div>
+             <a href="#" data-seek="0"> sdfsdf </a>
+        </div>
+
+      </div>
+
+      <div class="panel-footer">
+        <textarea id="msg-input" rows="3" class="form-control" placeholder="Comment..."></textarea>
+        <button id="msg-submit" class="btn btn-primary form-control" type="submit">Post</button>
+      </div>
+</div>
+
+
+<%content_for :footer_tags do %>
+  <%=javascript_include_tag("phoenix.js",    :plugin => "redmine_phoenix_socket")%> 
+  <%=javascript_include_tag("socket.js",     :plugin => "redmine_phoenix_socket")%> 
+  <%=javascript_include_tag("global_chat.js",:plugin => "redmine_phoenix_socket")%> 
+  <%=javascript_include_tag("app_socket.js", :plugin => "redmine_phoenix_socket")%>  
+<%end%>
