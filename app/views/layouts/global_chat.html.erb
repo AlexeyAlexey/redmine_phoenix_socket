@@ -13,15 +13,16 @@
 <%= stylesheet_link_tag 'rtl', :media => 'all' if l(:direction) == 'rtl' %>
 <%= javascript_heads %>
 <%= heads_for_theme %>
+<%= call_hook :view_layouts_base_html_head %>
 <!-- page specific tags -->
 <%= yield :header_tags -%>
 </head>
   <body class="<%= body_css_classes %>">
 
-    <div id="content">
+   
         <%= render_flash_messages %>
         <%= yield %>
-    </div>
+   
 
   
     <%= yield :footer_tags -%>

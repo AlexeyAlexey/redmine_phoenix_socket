@@ -1,6 +1,6 @@
 ActionDispatch::Callbacks.to_prepare do
   #require_dependency "redmine_phoenix_socket/view_layouts_base_html_head.rb"
-  require_dependency "redmine_phoenix_socket/phoenix_socket_view_layouts_base_sidebar.rb"
+  require_dependency "redmine_phoenix_socket/view_welcome_index_right.rb"
 
 end
 
@@ -11,4 +11,6 @@ Redmine::Plugin.register :redmine_phoenix_socket do
   version '0.0.1'
   url 'http://example.com/path/to/plugin'
   author_url 'http://example.com/about'
+
+
 end

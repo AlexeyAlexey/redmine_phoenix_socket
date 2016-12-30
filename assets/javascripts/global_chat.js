@@ -19,21 +19,14 @@
 
 
   var GlobalChat = {
-    init: function init(socket, element) {
-      console.log(!element);
-      if (!element) {
-        return;
-      }
-      var globalChatId = element.getAttribute("data-global-chat-id");
-      var msgContainer = document.getElementById("msg-container");
-      var msgInput = document.getElementById("msg-input");
-      var msgButton = document.getElementById("msg-submit");
-
-      socket.connect();
-
-      var vidChannel = socket.channel("videos:" + globalChatId);
+    init: function init() {
+      //socket.connect()
     },
-    onReady: function onReady(globalChatId, socket) {}
+
+
+    userChatsCollection: [],
+    groupsChatsCollection: []
+
   };
 
   exports.default = GlobalChat;

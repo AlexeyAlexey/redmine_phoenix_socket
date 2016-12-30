@@ -23,5 +23,10 @@
     };
   }
 
-  _global_chat2.default.init(_socket2.default, document.getElementById("global_chat"));
+  //GlobalChat.init(socket, document.getElementById("global_chat"))
+  _global_chat2.default.socket = _socket2.default;
+  window.GlobalChat = _global_chat2.default;
+
+  console.log('OK7');
+  //console.log(GlobalChat)
 });

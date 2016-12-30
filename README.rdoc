@@ -52,3 +52,9 @@ vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/
 vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6/socket.js --out-file socket.js
 vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6/app_socket.js --out-file app_socket.js
 vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6/global_chat.js --out-file global_chat.js
+
+
+
+/vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6 --out-dir .
+
+babel --no-babelrc es6/global_chat_class.js --out-dir . --presets=es2015

@@ -1,26 +1,104 @@
-<div id="global_chat" data-global-chat-id="1">
-      <div class="panel-heading">
-        <h3 class="panel-title">Annotations</h3>
-      </div>
-      
-      <div id="msg-container" class="panel-body annotation">
-        
-        <div>
-             <a href="#" data-seek="0"> sdfsdf </a>
-        </div>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-      </div>
-
-      <div class="panel-footer">
-        <textarea id="msg-input" rows="3" class="form-control" placeholder="Comment..."></textarea>
-        <button id="msg-submit" class="btn btn-primary form-control" type="submit">Post</button>
-      </div>
+  <div class="panel-body annotation" global-chat-id="1-5">
+    <a href="#" msg-container="msg-container-1-5" id="user-1-5">User5</a>
+  </div>
+  <div class="panel-body annotation" global-chat-id="1-8">
+    <a href="#" msg-container="msg-container-1-8" id="user-1-8">User8</a>
+  </div>
+  <a href="#">About</a> 
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
 </div>
 
+<!-- Use any element to open the sidenav -->
+
+
+<span class="btn-users-list" onclick="openNav()" >Users List</span>
+
+<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+<div id="main">
+  <div id="msg-container-1-5"  class="msg-container" style="visibility: hidden;">
+    <div id="msgs-container-1-5" class="msgs-container" >
+    
+      <div>
+        <a href="#" data-seek="0"> 1-5 </a>
+      </div>
+      <div>
+        <a href="#" data-seek="0"> sdfsdf </a>
+      </div>
+
+    </div>
+
+    <div class="panel-footer">
+      <textarea id="msg-input-1-5" rows="3" class="form-control" placeholder="Comment..." ></textarea>
+      <button id="msg-submit-1-5" msg-input="msg-input-1-5" msg-container="msg-container-1-5" class="btn btn-primary form-control" type="submit" >Post</button>
+    </div>
+  </div> 
+
+  <div id="msg-container-1-8" class="msg-container" style="visibility: hidden;">
+    <div  id="msgs-container-1-8" class="msgs-container">
+    
+      <div>
+        <a href="#" data-seek="0"> 1-8 </a>
+      </div>
+      <div>
+        <a href="#" data-seek="0"> sdfsdf </a>
+      </div>
+
+    </div>
+
+    <div class="panel-footer">
+      <textarea id="msg-input-1-8" rows="3" class="form-control" placeholder="Comment..." ></textarea>
+      <button id="msg-submit-1-8" msg-input="msg-input-1-8" msg-container="msg-container-1-8" class="btn btn-primary form-control" type="submit" >Post</button>
+    </div>
+  </div> 
+  ...
+
+</div>
+
+
+
+
+<%content_for :header_tags do %>
+  <%=stylesheet_link_tag 'global_chat_window',  :plugin => 'redmine_phoenix_socket' %>
+
+  
+<%end%>
 
 <%content_for :footer_tags do %>
   <%=javascript_include_tag("phoenix.js",    :plugin => "redmine_phoenix_socket")%> 
   <%=javascript_include_tag("socket.js",     :plugin => "redmine_phoenix_socket")%> 
   <%=javascript_include_tag("global_chat.js",:plugin => "redmine_phoenix_socket")%> 
   <%=javascript_include_tag("app_socket.js", :plugin => "redmine_phoenix_socket")%>  
+  <%=javascript_include_tag("global_chat_class.js", :plugin => "redmine_phoenix_socket")%>  
+
+  
+
 <%end%>
+
+<script type="text/javascript">
+   /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+  function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+      loadUserChat()
+  }
+
+  /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+  function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+  } 
+
+  function loadUserChat() {
+
+    new UserChat("1-5", GlobalChat.socket);
+    new UserChat("1-8", GlobalChat.socket);
+  } 
+ 
+</script>
+
+
