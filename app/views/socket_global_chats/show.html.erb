@@ -7,6 +7,9 @@
   <div class="panel-body annotation" global-chat-id="1-8">
     <a href="#" msg-container="msg-container-1-8" id="user-1-8">User8</a>
   </div>
+  <div class="panel-body annotation" global-chat-id="1-9">
+    <a href="#" msg-container="msg-container-1-9" id="user-1-9">User9</a>
+  </div>
   <a href="#">About</a> 
   <a href="#">Services</a>
   <a href="#">Clients</a>
@@ -55,6 +58,24 @@
       <button id="msg-submit-1-8" msg-input="msg-input-1-8" msg-container="msg-container-1-8" class="btn btn-primary form-control" type="submit" >Post</button>
     </div>
   </div> 
+
+  <div id="msg-container-1-9"  class="msg-container" style="visibility: hidden;">
+    <div id="msgs-container-1-9" class="msgs-container" >
+    
+      <div>
+        <a href="#" data-seek="0"> 1-9 </a>
+      </div>
+      <div>
+        <a href="#" data-seek="0"> sdfsdf </a>
+      </div>
+
+    </div>
+
+    <div class="panel-footer">
+      <textarea id="msg-input-1-9" rows="3" class="form-control" placeholder="Comment..." ></textarea>
+      <button id="msg-submit-1-9" msg-input="msg-input-1-9" msg-container="msg-container-1-9" class="btn btn-primary form-control" type="submit" >Post</button>
+    </div>
+  </div> 
   ...
 
 </div>
@@ -63,6 +84,13 @@
 
 
 <%content_for :header_tags do %>
+  <script>
+    <%
+       
+    %>
+    window.userToken = "<%=@signature%>"
+  </script>
+
   <%=stylesheet_link_tag 'global_chat_window',  :plugin => 'redmine_phoenix_socket' %>
 
   
@@ -95,8 +123,11 @@
 
   function loadUserChat() {
 
-    new UserChat("1-5", GlobalChat.socket);
-    new UserChat("1-8", GlobalChat.socket);
+    GlobalChat.socket.connect();
+
+    new UserChat("global_chat", "1-5", GlobalChat.socket);
+    new UserChat("global_chat", "1-8", GlobalChat.socket);
+    new UserChat("global_chat", "1-9", GlobalChat.socket);
   } 
  
 </script>

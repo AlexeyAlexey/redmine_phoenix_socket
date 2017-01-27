@@ -27,6 +27,6 @@
   _global_chat2.default.socket = _socket2.default;
   window.GlobalChat = _global_chat2.default;
 
-  console.log('OK7');
+  //console.log('OK7')
   //console.log(GlobalChat)
 });

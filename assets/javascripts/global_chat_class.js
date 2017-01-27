@@ -5,9 +5,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var UserChat = function () {
-    function UserChat(identifier, globalChat) {
+    function UserChat(topic, identifier, globalChat) {
         _classCallCheck(this, UserChat);
 
+        //constructor(topic, subtopic, globalChat)
+        this.topic = topic;
         this.identifier = identifier;
         this.socket = globalChat.socket;
         this.postButton = document.getElementById("msg-submit-" + this.identifier);

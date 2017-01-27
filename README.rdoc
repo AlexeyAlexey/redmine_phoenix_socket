@@ -58,3 +58,84 @@ vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/
 /vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6 --out-dir .
 
 babel --no-babelrc es6/global_chat_class.js --out-dir . --presets=es2015
+
+
+https://github.com/potatosalad/erlang-etf/tree/master
+
+
+
+secret = ActiveSupport::KeyGenerator.new("secret1111111111111111111111", options = {iterations: 1000}).generate_key("salt", key_size=32)
+ => "\xAC\xBE\xC0\xECp\xAF\x9B\xD0Q\x16\xC0\xB9Y\xDC \xAA$\xFF\x9F\xEE1\x12l\x16f\xC2\xD9\x95\xA7\x91u\xF8" 
+
+2.2.4 :159 > first = Base64.urlsafe_encode64("HS256")
+ => "SFMyNTY=" 
+
+
+ second = Base64.urlsafe_encode64(Erlang.term_to_binary(Erlang::Map[:data, :signed, Erlang::Map[:user_id, 1], "1212"]))
+
+ 2.2.4 :169 > first_second = "#{first}.#{second}"
+  => "SFMyNTY=.g3QAAAACcwRkYXRhdAAAAAFzB3VzZXJfaWRhAXMGc2lnbmVkbQAAAAQxMjEy" 
+
+
+2.2.4 :170 > hmac = OpenSSL::HMAC.digest(digest, secret, first_second)
+ => "\x81bC\xCFk,\x94\x92\x85>]_)\x0F\xC5\xCFb\xC6V\xAFAS\xE0\xDF\x8E'G\xA0Y\xA6\x10\a" 
+2.2.4 :171 > last = Base64.urlsafe_encode64(hmac)
+ => "gWJDz2sslJKFPl1fKQ_Fz2LGVq9BU-DfjidHoFmmEAc=" 
+2.2.4 :172 > "#{first}.#{second}.#{last}"
+ => "SFMyNTY=.g3QAAAACcwRkYXRhdAAAAAFzB3VzZXJfaWRhAXMGc2lnbmVkbQAAAAQxMjEy.gWJDz2sslJKFPl1fKQ_Fz2LGVq9BU-DfjidHoFmmEAc=" 
+
+
+
+iex(53)> key = Plug.Crypto.KeyGenerator.generate("secret1111111111111111111111", "salt", [iterations: 1000, length: 32, digest: :sha])
+<<172, 190, 192, 236, 112, 175, 155, 208, 81, 22, 192, 185, 89, 220, 32, 170,
+  36, 255, 159, 238, 49, 18, 108, 22, 102, 194, 217, 149, 167, 145, 117, 248>>
+    
+iex(54)> Plug.Crypto.MessageVerifier.verify("SFMyNTY=.g3QAAAACcwRkYXRhdAAAAAFzB3VzZXJfaWRhAXMGc2lnbmVkbQAAAAQxMjEy.gWJDz2sslJKFPl1fKQ_Fz2LGVq9BU-DfjidHoFmmEAc=", key)
+{:ok,
+ <<131, 116, 0, 0, 0, 2, 115, 4, 100, 97, 116, 97, 116, 0, 0, 0, 1, 115, 7, 117,
+   115, 101, 114, 95, 105, 100, 97, 1, 115, 6, 115, 105, 103, 110, 101, 100,
+   109, 0, 0, 0, 4, 49, 50, 49, 50>>}
+
+
+{:ok, res} = Plug.Crypto.MessageVerifier.verify("SFMyNTY=.g3QAAAACcwRkYXRhdAAAAAFzB3VzZXJfaWRhAXMGc2lnbmVkbQAAAAQxMjEy.gWJDz2sslJKFPl1fKQ_Fz2LGVq9BU-DfjidHoFmmEAc=", key)
+{:ok,
+ <<131, 116, 0, 0, 0, 2, 115, 4, 100, 97, 116, 97, 116, 0, 0, 0, 1, 115, 7, 117,
+   115, 101, 114, 95, 105, 100, 97, 1, 115, 6, 115, 105, 103, 110, 101, 100,
+   109, 0, 0, 0, 4, 49, 50, 49, 50>>}
+iex(57)> res
+<<131, 116, 0, 0, 0, 2, 115, 4, 100, 97, 116, 97, 116, 0, 0, 0, 1, 115, 7, 117,
+  115, 101, 114, 95, 105, 100, 97, 1, 115, 6, 115, 105, 103, 110, 101, 100, 109,
+  0, 0, 0, 4, 49, 50, 49, 50>>
+
+
+iex(58)> res |> :erlang.binary_to_term         
+%{data: %{user_id: 1}, signed: "1212"}
+
+iex(71)> Phoenix.Token.verify("secret1111111111111111111111", "salt", "SFMyNTY=.g3QAAAACcwRkYXRhdAAAAAFzB3VzZXJfaWRhAXMGc2lnbmVkbQAAAAQxMjEy.gWJDz2sslJKFPl1fKQ_Fz2LGVq9BU-DfjidHoFmmEAc=", [key_iterations: 1000, key_length: 32, key_digest: :sha])
+{:ok, %{user_id: 1}}
+
+
+
+
+include SocketGlobalChatsHelper
+ => Object 
+
+2.2.4 :004 > socket_data = socket_data({user_id: 1}, signed=nil)
+ => "\x83t\x00\x00\x00\x02s\x04datas\x06signedt\x00\x00\x00\x01s\auser_ida\x01n\x06\x00\x01\x13\a\x93Y\x01" 
+2.2.4 :005 > secret = get_secret("secret1111111111111111111111", "salt", opts = {iterations: 1000}, key_size = 32)
+ => "\xAC\xBE\xC0\xECp\xAF\x9B\xD0Q\x16\xC0\xB9Y\xDC \xAA$\xFF\x9F\xEE1\x12l\x16f\xC2\xD9\x95\xA7\x91u\xF8" 
+2.2.4 :006 > sign_data = sign(secret, socket_data, digest_type="sha256", opts = [])
+ => "SFMyNTY=.g3QAAAACcwRkYXRhcwZzaWduZWR0AAAAAXMHdXNlcl9pZGEBbgYAARMHk1kB.KYsCQMbMiICt4xmiOOnI36o3wMR3K9RyMl19Bj4fLXE=" 
+
+
+
+
+
+
+map2 = Erlang::Map[:atom, 1]
+map2[:atom2] = 2
+
+Erlang.term_to_binary(map2)
+
+
+

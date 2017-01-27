@@ -1,11 +1,13 @@
 class UserChat {
-    constructor(identifier, globalChat) {
+    constructor(topic, identifier, globalChat) {
+        //constructor(topic, subtopic, globalChat)
+        this.topic      = topic;
         this.identifier = identifier;
         this.socket     = globalChat.socket;
         this.postButton = document.getElementById(`msg-submit-${this.identifier}`);
         this.msgInput   = document.getElementById(`msg-input-${this.identifier}`);
         this.msgsContainer = document.getElementById(`msgs-container-${this.identifier}`);
-        this.msgContainer = document.getElementById(`msg-container-${this.identifier}`);
+        this.msgContainer  = document.getElementById(`msg-container-${this.identifier}`);
 
         this.user       = document.getElementById(`user-${this.identifier}`);
 
