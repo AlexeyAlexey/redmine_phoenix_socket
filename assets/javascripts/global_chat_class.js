@@ -5,13 +5,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var UserChat = function () {
-    function UserChat(topic, identifier, globalChat) {
+    function UserChat(topic, identifier, socket) {
         _classCallCheck(this, UserChat);
 
         //constructor(topic, subtopic, globalChat)
-        this.topic = topic;
-        this.identifier = identifier;
-        this.socket = globalChat.socket;
+        this.topic = topic; //socket topic
+        this.identifier = identifier; //socket subtopic
+        this.socket = socket;
         this.postButton = document.getElementById("msg-submit-" + this.identifier);
         this.msgInput = document.getElementById("msg-input-" + this.identifier);
         this.msgsContainer = document.getElementById("msgs-container-" + this.identifier);
@@ -19,8 +19,13 @@ var UserChat = function () {
 
         this.user = document.getElementById("user-" + this.identifier);
 
+        //this.chatChannel = this.socket.channel(`${this.topic}:${this.identifier}`)
+        //this.chatChannel.join()
+        //.receive("ok", resp => { console.log("Joined successfully", resp) })
+        //.receive("error", resp => { console.log("Unable to join", resp) })
+
         this.addEvent();
-        //this.globalChatChanel = socket.channel("global_chat:" + identifier)
+
         this.constructor.userChatsCollection.push(this);
     }
 
@@ -30,13 +35,20 @@ var UserChat = function () {
             var _this = this;
 
             //let vidChannel   = socket.channel("videos:" + videoId)
+            var chatChannel = this.socket.channel(this.topic + ":" + this.identifier);
 
             this.postButton.addEventListener("click", function (e) {
                 var template = document.createElement("div");
+                var message = _this.msgInput.value;
+                var payload = { body: message };
 
                 template.innerHTML = "\n              <a href=\"#\" data-seek=\"0\"> " + _this.esc(_this.msgInput.value) + " </a>\n\t\t    ";
                 _this.msgsContainer.appendChild(template);
                 _this.msgInput.value = "";
+
+                chatChannel.push("send_message", payload).receive("error", function (e) {
+                    return console.log(e);
+                });
             });
 
             this.user.addEventListener("click", function (e) {
@@ -47,6 +59,16 @@ var UserChat = function () {
                     }
                 });
                 _this.msgContainer.style.visibility = "visible";
+            });
+
+            chatChannel.on("send_message", function (resp) {
+                console.log(resp);
+            });
+
+            chatChannel.join().receive("ok", function (resp) {
+                console.log("Joined successfully", resp);
+            }).receive("error", function (resp) {
+                console.log("Unable to join", resp);
             });
         }
     }, {
@@ -59,18 +81,10 @@ var UserChat = function () {
     }, {
         key: "userChatsCollection",
         set: function set(value) {
-            this.constructor.userChatsCollection = value;
+            this.constructor.userChatsCollection.push(value);
         },
         get: function get() {
             return this.constructor.userChatsCollection;
-        }
-    }, {
-        key: "x",
-        get: function get() {
-            return this.constructor.x;
-        },
-        set: function set(value) {
-            this.constructor.x = value;
         }
     }]);
 

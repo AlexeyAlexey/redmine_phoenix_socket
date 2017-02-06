@@ -123,11 +123,10 @@
 
   function loadUserChat() {
 
-    GlobalChat.socket.connect();
-
-    new UserChat("global_chat", "1-5", GlobalChat.socket);
-    new UserChat("global_chat", "1-8", GlobalChat.socket);
-    new UserChat("global_chat", "1-9", GlobalChat.socket);
+    socket.connect();
+    var user1_5 = new UserChat("global_chat", "1-5", socket);
+    //new UserChat("global_chat", "1-8", socket);
+    //new UserChat("global_chat", "1-9", socket);
   } 
  
 </script>

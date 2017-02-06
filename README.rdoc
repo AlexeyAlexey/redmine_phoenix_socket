@@ -7,7 +7,7 @@ Plugin connects to Phoenix ws
 
 
 https://babeljs.io/
-http://babeljs.io/docs/usage/cli/
+http://babeljs.io/docs/usage/cli/ 
 
 https://www.npmjs.com/package/babel-plugin-add-module-exports
 
@@ -62,6 +62,7 @@ vagrant@vagrant-ubuntu-trusty-64:/vagrant/plugins/redmine_phoenix_socket/assets/
 /vagrant/plugins/redmine_phoenix_socket/assets/javascripts$ babel es6 --out-dir .
 
 babel --no-babelrc es6/global_chat_class.js --out-dir . --presets=es2015
+babel --no-babelrc es6/global_chat_class.js --out-file global_chat_class.js --presets=es2015
 
 
 https://github.com/potatosalad/erlang-etf/tree/master
