@@ -1,5 +1,5 @@
 class UserChat {
-    constructor(topic, identifier, socket) {
+    constructor(topic, identifier, socket, usersToken) {
         //constructor(topic, subtopic, globalChat)
         this.topic      = topic;//socket topic
         this.identifier = identifier;//socket subtopic
@@ -10,6 +10,7 @@ class UserChat {
         this.msgContainer  = document.getElementById(`msg-container-${this.identifier}`);
 
         this.user       = document.getElementById(`user-${this.identifier}`);
+        this.usersToken = usersToken
          
         //this.chatChannel = this.socket.channel(`${this.topic}:${this.identifier}`)
         //this.chatChannel.join()
@@ -23,7 +24,7 @@ class UserChat {
     }
     addEvent(){
       //let vidChannel   = socket.channel("videos:" + videoId)
-      let chatChannel = this.socket.channel(`${this.topic}:${this.identifier}`)
+      let chatChannel = this.socket.channel(`${this.topic}:${this.identifier}`, {usersToken: this.usersToken})
       
       this.postButton.addEventListener("click", e => {
          let template = document.createElement("div");

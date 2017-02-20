@@ -5,7 +5,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var UserChat = function () {
-    function UserChat(topic, identifier, socket) {
+    function UserChat(topic, identifier, socket, usersToken) {
         _classCallCheck(this, UserChat);
 
         //constructor(topic, subtopic, globalChat)
@@ -18,6 +18,7 @@ var UserChat = function () {
         this.msgContainer = document.getElementById("msg-container-" + this.identifier);
 
         this.user = document.getElementById("user-" + this.identifier);
+        this.usersToken = usersToken;
 
         //this.chatChannel = this.socket.channel(`${this.topic}:${this.identifier}`)
         //this.chatChannel.join()
@@ -35,7 +36,7 @@ var UserChat = function () {
             var _this = this;
 
             //let vidChannel   = socket.channel("videos:" + videoId)
-            var chatChannel = this.socket.channel(this.topic + ":" + this.identifier);
+            var chatChannel = this.socket.channel(this.topic + ":" + this.identifier, { usersToken: this.usersToken });
 
             this.postButton.addEventListener("click", function (e) {
                 var template = document.createElement("div");

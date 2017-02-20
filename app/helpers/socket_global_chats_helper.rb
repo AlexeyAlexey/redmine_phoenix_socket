@@ -53,4 +53,33 @@ module SocketGlobalChatsHelper
     end
   end
 
+
+  def chats_list(chat_users)
+    <<-eos
+      <div class='panel-body annotation' global-chat-id='#{chat_users}'>
+        <a href='#' msg-container='msg-container-#{chat_users}' id='user-#{chat_users}'>User5</a>
+      </div>
+    eos
+  end
+
+  def chat_message_block(chat_users)
+    <<-eos
+      <div id='msg-container-#{chat_users}'  class='msg-container' style='visibility: hidden;'>
+        <div id='msgs-container-#{chat_users}' class='msgs-container' >
+          <div>
+            <a href='#' data-seek='0'> #{chat_users} </a>
+          </div>
+          <div>
+            <a href='#' data-seek='0'> sdfsdf </a>
+          </div>
+
+        </div>
+
+        <div class='panel-footer'>
+          <textarea id='msg-input-#{chat_users}' rows='3' class='form-control' placeholder='Comment...' ></textarea>
+          <button id='msg-submit-#{chat_users}' msg-input='msg-input-#{chat_users}' msg-container='msg-container-#{chat_users}' class='btn btn-primary form-control' type='submit' >Post</button>
+        </div>
+      </div> 
+    eos
+  end
 end

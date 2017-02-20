@@ -13,5 +13,12 @@ class SocketGlobalChatsController < ApplicationController
     #data   = socket_data({user_id: 1, key2: 'value'}, timestamp=nil)
     data   = socket_data({user_id: 1}, timestamp=nil)
     @signature = sign(secret, data, digest_type="sha256", opts = [])
+    
+    @chat_usersTokens = {}
+    ["1-5", "1-8", "1-9"].map do |chat|
+      data = socket_data({users_ids: chat}, timestamp=nil)
+      @chat_usersTokens[chat] = sign(secret, data, digest_type="sha256", opts = [])
+    end
+
   end
 end

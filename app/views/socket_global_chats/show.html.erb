@@ -1,15 +1,9 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-
-  <div class="panel-body annotation" global-chat-id="1-5">
-    <a href="#" msg-container="msg-container-1-5" id="user-1-5">User5</a>
-  </div>
-  <div class="panel-body annotation" global-chat-id="1-8">
-    <a href="#" msg-container="msg-container-1-8" id="user-1-8">User8</a>
-  </div>
-  <div class="panel-body annotation" global-chat-id="1-9">
-    <a href="#" msg-container="msg-container-1-9" id="user-1-9">User9</a>
-  </div>
+  <%@chat_usersTokens.each_key do |chat_users|%>
+    <%=chats_list(chat_users).html_safe%>
+  <%end%>
+  
   <a href="#">About</a> 
   <a href="#">Services</a>
   <a href="#">Clients</a>
@@ -23,61 +17,9 @@
 
 <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
 <div id="main">
-  <div id="msg-container-1-5"  class="msg-container" style="visibility: hidden;">
-    <div id="msgs-container-1-5" class="msgs-container" >
-    
-      <div>
-        <a href="#" data-seek="0"> 1-5 </a>
-      </div>
-      <div>
-        <a href="#" data-seek="0"> sdfsdf </a>
-      </div>
-
-    </div>
-
-    <div class="panel-footer">
-      <textarea id="msg-input-1-5" rows="3" class="form-control" placeholder="Comment..." ></textarea>
-      <button id="msg-submit-1-5" msg-input="msg-input-1-5" msg-container="msg-container-1-5" class="btn btn-primary form-control" type="submit" >Post</button>
-    </div>
-  </div> 
-
-  <div id="msg-container-1-8" class="msg-container" style="visibility: hidden;">
-    <div  id="msgs-container-1-8" class="msgs-container">
-    
-      <div>
-        <a href="#" data-seek="0"> 1-8 </a>
-      </div>
-      <div>
-        <a href="#" data-seek="0"> sdfsdf </a>
-      </div>
-
-    </div>
-
-    <div class="panel-footer">
-      <textarea id="msg-input-1-8" rows="3" class="form-control" placeholder="Comment..." ></textarea>
-      <button id="msg-submit-1-8" msg-input="msg-input-1-8" msg-container="msg-container-1-8" class="btn btn-primary form-control" type="submit" >Post</button>
-    </div>
-  </div> 
-
-  <div id="msg-container-1-9"  class="msg-container" style="visibility: hidden;">
-    <div id="msgs-container-1-9" class="msgs-container" >
-    
-      <div>
-        <a href="#" data-seek="0"> 1-9 </a>
-      </div>
-      <div>
-        <a href="#" data-seek="0"> sdfsdf </a>
-      </div>
-
-    </div>
-
-    <div class="panel-footer">
-      <textarea id="msg-input-1-9" rows="3" class="form-control" placeholder="Comment..." ></textarea>
-      <button id="msg-submit-1-9" msg-input="msg-input-1-9" msg-container="msg-container-1-9" class="btn btn-primary form-control" type="submit" >Post</button>
-    </div>
-  </div> 
-  ...
-
+  <%@chat_usersTokens.each_key do |chat_users|%>
+    <%=chat_message_block(chat_users).html_safe%>
+  <%end%>
 </div>
 
 
@@ -124,7 +66,10 @@
   function loadUserChat() {
 
     socket.connect();
-    var user1_5 = new UserChat("global_chat", "1-5", socket);
+    <%@chat_usersTokens.each do |chat, usersToken|%>
+      var user<%=chat.gsub('-', '_')%> = new UserChat("global_chat", '<%=chat%>', socket, '<%=usersToken%>');
+    <%end%>
+    //var user1_5 = new UserChat("topic", "subtopic", socket);
     //new UserChat("global_chat", "1-8", socket);
     //new UserChat("global_chat", "1-9", socket);
   } 

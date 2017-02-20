@@ -2,7 +2,7 @@
 
 Description goes here
 
-Plugin connects to Phoenix ws
+Plugin connects to Phoenix ws (https://github.com/AlexeyAlexey/redmine_socket/tree/develop)
 
 
 
